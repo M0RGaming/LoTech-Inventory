@@ -200,3 +200,40 @@ div#movingbox {
     z-index: 5;
     position: relative;
 }
+
+
+.exData {
+    position: fixed;
+    top: 0px;
+    background-color: rgba(0, 0, 0, 0.9);
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+}
+
+h3.location {
+    text-align:  center;
+}
+
+.rent {
+    text-align:  center;
+}
+
+.eximg {
+      position: absolute;
+    left: 10px;
+    height: 75vh;
+    top: 12.5vh;
+}
+
+.exDesc {
+  text-align: center
+}
+
+.closeX {
+  height: 5vh;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+}

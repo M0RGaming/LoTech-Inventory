@@ -1,3 +1,0 @@
-Client ID: 802146460653-1bo2qfoe8au24l8bjgj08jrkf4uvau3n.apps.googleusercontent.com
-Secret: GLd92sGTDn7k-wdue93aGU9j
-API Key: AIzaSyDSFf7zg2wBkgTWNWKtchi7gQ6cQVNhRyA
