@@ -69,6 +69,42 @@
     <script src="load_sheetsu.js"></script>
     <script type="text/javascript">
 
+      function makeNewElementFromElement( tag, elem ) {
+
+          var newElem = document.createElement(tag),
+              i, prop,
+              attr = elem.attributes,
+              attrLen = attr.length;
+
+          // Copy children 
+          elem = elem.cloneNode(true);
+          while (elem.firstChild) {
+              newElem.appendChild(elem.firstChild);
+          }
+
+          // Copy DOM properties
+          for (i in elem) {
+              try {
+                  prop = elem[i];
+                  if (prop && i !== 'outerHTML' && (typeof prop === 'string' || typeof prop === 'number')) {
+                      newElem[i] = elem[i];
+                  }
+              } catch(e) { /* some props throw getter errors */ }
+          }
+
+          // Copy attributes
+          for (i = 0; i < attrLen; i++) {
+              newElem.setAttribute(attr[i].nodeName, attr[i].nodeValue);
+          }
+
+          // Copy inline CSS
+          newElem.style.cssText = elem.style.cssText;
+
+          return newElem;
+      }
+
+
+
       
 
       function loadbuttons() {
@@ -96,10 +132,18 @@
       };
 
       function test() {
-        $.get("https://docs.google.com/spreadsheet/pub?key=1mGzL4Ap4kb0Xm0MUoZDUKcabsxPk5on-4UzMKkqlNF4&single=true&gid=0&range=b5&output=csv", function(data){
-          alert(data);
-        });
-      }
+          $('.fltrow').children().each( function convert() {
+
+
+          //fltrow = $('.fltrow')
+          //for (i in fltrow) {
+            el = makeNewElementFromElement('th', this)
+            $('.fltrow').append(el)
+            $(this).remove()
+          });
+          
+          
+        };
 
     </script>
 
@@ -192,6 +236,10 @@
 
         if (crow.img === "") {
           crow.img = undefined
+        }
+
+        if (crow.exDesc === "") {
+          crow.exDesc = crow.desc
         }
 
         //console.log(name)
