@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test</title>
+  <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="jquery.tablesorter.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="index2.css">
+  <link rel="stylesheet" type="text/css" href="themes/blue/style.css">
+  <script>
+    function find() {
+      // Declare variables 
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("SearchBar");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("table");
+      tr = table.getElementsByTagName("tr");
+
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+  </script>
+</head>
+<body>
+  <!--
+  <div class="row" sheetsu="https://sheetsu.com/apis/v1.0su/90d79643a9ea" sheetsu-offset="1" sheetsu-limit="1">
+    <div class="col-4">
+      <h1>{{name}}</h1>
+      <p>{{description}}</p>
+      <p>{{id}}</p>
+
+    </div>
+  </div>
+  
+  <div sheetsu="https://sheetsu.com/apis/v1.0su/90d79643a9ea">
+    <div style="position: relative;width: 25%;">
+      <div style="border-width: 5px;border-color: aqua;border-style: double;margin-top: 10px; margin-bottom: 10px;">
+        <h1>{{name}}</h1>
+        <p>{{description}}</p>
+        <p>{{id}}</p>
+        <p>Available: {{avail}}</p>
+        <button style="visibility: hidden;" class="{{avail}}">Click Here to Check Out</button>
+      </div>
+    </div>
+    <div id="{{load}}"></div>
+  </div>
+
+-->
+  
+  <div id="blackout">
+    <div id="movingbox"></div>
+    <h1>Please Wait, Loading</h1>
+  </div>
+  
+
+  <input type="text" id="SearchBar" onkeyup="find()" placeholder="Search for items">
+  <table id="table" class="container tablesorter">
+    <thead>
+      <tr>
+        <th><h1>Name</h1></th>
+        <th><h1>ID</h1></th>
+        <th><h1>Available?</h1></th>
+        <th><h1>Description</h1></th>
+        <th><h1>More Info</h1></th>
+      </tr>
+    </thead>
+      <tbody sheetsu="https://sheetsu.com/apis/v1.0su/90d79643a9ea">
+          <tr>
+            <td>{{name}}</td>
+            <td>{{id}}</td>
+            <td>{{avail}} <button class="{{avail}}" style="display: none;">Check Out Item</button></td>
+            <td>{{description}}</td>
+            <td onclick="show('{{id}}');">[Click Here]</td>
+          </tr>
+      </tbody>
+      <h1 id="title">LO Tech Inventory</h1>
+  </table>
+
+  <div sheetsu="https://sheetsu.com/apis/v1.0su/90d79643a9ea">
+    <!-- LOAD INFO ABOUT EACH THING HERE -->
+    <div id='{{id}}' class="exData">
+      <h1>{{name}}</h1>
+      <h2>{{id}}</h2>
+      <img src={{img}} class="eximg">
+      <p class="exDesc">{{exDesc}}</p>
+      <h3 class="location">Last known location: {{location}}</h3>
+      <div class='rent {{avail}}'>
+        <h3>Available: {{avail}}</h3>
+        <p class="rentee">Taken Out by: {{rentee}}</p>
+        <p class="due">Due: {{due}}</p>
+        <button class="checkout">Check Out</button>
+      </div>
+      <img src="Fancy X.png" class="closeX" onclick="hide('{{id}}')">
+    </div>
+    <div class="{{load}}"></div>
+  </div>
+
+  <script src="load_sheetsu.js"></script>
+  <script type="text/javascript">
+    var checkExist = setInterval(function() {
+       if ($('.loaded').length) {
+          console.log("Exists!");
+          loadbuttons();
+          vanish();
+          $("#table").tablesorter({sortList:[[1,0]]});
+          $("#blackout").fadeOut();
+          clearInterval(checkExist);
+       }
+    }, 100); // check every 100ms
+
+    
+
+    function loadbuttons() {
+      [].forEach.call(document.querySelectorAll('.Yes'), function (el) {
+        el.style.display = 'inherit';
+      });
+    };
+
+    function vanish() {
+      $('.rent.No').children('.checkout').hide()
+      $('.rent.Yes').children('.rentee,.due').hide()
+
+      $('.exData').hide()
+      $('.exData').css('zIndex', 10)
+    };
+
+    function show(el) {
+      $("#"+el).fadeIn()
+    };
+    function hide(el) {
+      $("#"+el).fadeOut()
+    };
+
+  </script>
+
+</body>
+</html>

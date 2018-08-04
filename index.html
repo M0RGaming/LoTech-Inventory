@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Test</title>
+  <title>LO Tech: Inventory</title>
   <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="jquery.tablesorter.min.js"></script>
   <link rel="stylesheet" type="text/css" href="index2.css">
   <link rel="stylesheet" type="text/css" href="themes/blue/style.css">
+  <script type="text/javascript" src="tablefilter/tablefilter.js"></script>
   <script>
     function find() {
       // Declare variables 
@@ -29,117 +30,219 @@
     }
   </script>
 </head>
-<body>
-  <!--
-  <div class="row" sheetsu="https://sheetsu.com/apis/v1.0su/90d79643a9ea" sheetsu-offset="1" sheetsu-limit="1">
-    <div class="col-4">
-      <h1>{{name}}</h1>
-      <p>{{description}}</p>
-      <p>{{id}}</p>
-
+  <body>
+    
+    <div id="blackout">
+      <div id="movingbox"></div>
+      <h1>Please Wait, Loading</h1>
     </div>
-  </div>
-  
-  <div sheetsu="https://sheetsu.com/apis/v1.0su/90d79643a9ea">
-    <div style="position: relative;width: 25%;">
-      <div style="border-width: 5px;border-color: aqua;border-style: double;margin-top: 10px; margin-bottom: 10px;">
-        <h1>{{name}}</h1>
-        <p>{{description}}</p>
-        <p>{{id}}</p>
-        <p>Available: {{avail}}</p>
-        <button style="visibility: hidden;" class="{{avail}}">Click Here to Check Out</button>
-      </div>
-    </div>
-    <div id="{{load}}"></div>
-  </div>
-
--->
-  
-  <div id="blackout">
-    <div id="movingbox"></div>
-    <h1>Please Wait, Loading</h1>
-  </div>
-  
-
-  <input type="text" id="SearchBar" onkeyup="find()" placeholder="Search for items">
-  <table id="table" class="container tablesorter">
-    <thead>
-      <tr>
-        <th><h1>Name</h1></th>
-        <th><h1>ID</h1></th>
-        <th><h1>Available?</h1></th>
-        <th><h1>Description</h1></th>
-        <th><h1>More Info</h1></th>
-      </tr>
-    </thead>
-      <tbody sheetsu="https://sheetsu.com/apis/v1.0su/90d79643a9ea">
-          <tr>
-            <td>{{name}}</td>
-            <td>{{id}}</td>
-            <td>{{avail}} <button class="{{avail}}" style="display: none;">Check Out Item</button></td>
-            <td>{{description}}</td>
-            <td onclick="show('{{id}}');">[Click Here]</td>
-          </tr>
-      </tbody>
-      <h1 id="title">LO Tech Inventory</h1>
-  </table>
-
-  <div sheetsu="https://sheetsu.com/apis/v1.0su/90d79643a9ea">
-    <!-- LOAD INFO ABOUT EACH THING HERE -->
-    <div id='{{id}}' class="exData">
-      <h1>{{name}}</h1>
-      <h2>{{id}}</h2>
-      <img src={{img}} class="eximg">
-      <p class="exDesc">{{exDesc}}</p>
-      <h3 class="location">Last known location: {{location}}</h3>
-      <div class='rent {{avail}}'>
-        <h3>Available: {{avail}}</h3>
-        <p class="rentee">Taken Out by: {{rentee}}</p>
-        <p class="due">Due: {{due}}</p>
-        <button class="checkout">Check Out</button>
-      </div>
-      <img src="Fancy X.png" class="closeX" onclick="hide('{{id}}')">
-    </div>
-    <div class="{{load}}"></div>
-  </div>
-
-  <script src="load_sheetsu.js"></script>
-  <script type="text/javascript">
-    var checkExist = setInterval(function() {
-       if ($('.loaded').length) {
-          console.log("Exists!");
-          loadbuttons();
-          vanish();
-          $("#table").tablesorter({sortList:[[1,0]]});
-          $("#blackout").fadeOut();
-          clearInterval(checkExist);
-       }
-    }, 100); // check every 100ms
-
     
 
-    function loadbuttons() {
-      [].forEach.call(document.querySelectorAll('.Yes'), function (el) {
-        el.style.display = 'inherit';
-      });
-    };
 
-    function vanish() {
-      $('.rent.No').children('.checkout').hide()
-      $('.rent.Yes').children('.rentee,.due').hide()
 
-      $('.exData').hide()
-      $('.exData').css('zIndex', 10)
-    };
+    <input type="text" id="SearchBar" onkeyup="find()" placeholder="Search for items">
+    <table id="table" class="container tablesorter">
+      <thead>
+        <tr>
+          <th><h1>Name</h1></th>
+          <th><h1>ID</h1></th>
+          <th><h1>Category</h1></th>
+          <th><h1>Description</h1></th>
+          <th><h1>More Info</h1></th>
+        </tr>
+      </thead>
+        <tbody id="datatable">
+        </tbody>
+        <h1 id="title">LO Tech Inventory</h1>
+    </table>
 
-    function show(el) {
-      $("#"+el).fadeIn()
-    };
-    function hide(el) {
-      $("#"+el).fadeOut()
-    };
 
+
+    <div id="extraData">
+      <!-- LOAD INFO ABOUT EACH THING HERE -->
+      
+    </div>
+
+
+
+
+    <script src="load_sheetsu.js"></script>
+    <script type="text/javascript">
+
+      
+
+      function loadbuttons() {
+        /*
+        [].forEach.call(document.querySelectorAll('.Yes'), function (el) {
+          el.style.display = 'inherit';
+        });
+        */
+      };
+
+      function vanish() {
+        $('.rent.No').children('.checkout').hide()
+        $('.rent.Yes').children('.rentee,.due').hide()
+        $(document.getElementsByClassName('N/A')).children('*').hide()
+
+        $('.exData').hide()
+        $('.exData').css('zIndex', 10)
+      };
+
+      function show(el) {
+        $("#"+el).fadeIn()
+      };
+      function hide(el) {
+        $("#"+el).fadeOut()
+      };
+
+      function test() {
+        $.get("https://docs.google.com/spreadsheet/pub?key=1mGzL4Ap4kb0Xm0MUoZDUKcabsxPk5on-4UzMKkqlNF4&single=true&gid=0&range=b5&output=csv", function(data){
+          alert(data);
+        });
+      }
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript">
+    function sheetLoaded(spreadsheetdata) {
+     // do something with spreadsheet data here
+     var headers = []
+     //console.log(spreadsheetdata)
+     console.log(spreadsheetdata.feed.entry);
+     //console.log(spreadsheetdata.feed.entry.length)
+     var cells = {}
+
+     for (var i = 0; i < spreadsheetdata.feed.entry.length; i++) {
+        cell = spreadsheetdata.feed.entry[i].title.$t
+        content = spreadsheetdata.feed.entry[i].content.$t
+        len = cell.length
+        if (len === 2) {
+          if (cell.substring(1) === "1") {
+            //console.log(cell)
+            headers.push(content)
+          }
+        }
+     }
+
+     for (i in spreadsheetdata.feed.entry) {
+      x = spreadsheetdata.feed.entry[i]
+       cell = x.title.$t
+       num = cell.substring(1)
+       letter = cell.substring(0, 1)
+       content = x.content.$t
+
+       if (num in cells) {} else {
+         cells[num] = {}
+       }
+
+       cells[num][letter] = content
+
+     }
+     console.log("=======Cells=======")
+     console.log(cells)
+     console.log("=======Headers=======")
+     console.log(headers)
+     console.log("==============")
+
+     tout = ""
+     dout = ""
+     
+     for (i in cells) {
+      if (i !== "1") {
+        cell = cells[i]
+
+        crow = {}
+        
+        crow.name = cell.B
+        crow.id = cell.A
+        crow.desc = cell.C
+        crow.exDesc = cell.D
+        crow.img = cell.E
+        crow.loc = cell.F
+
+        crow.avail = cell.K
+        crow.rentee = cell.L
+        crow.due = cell.M
+        crow.group = cell.G
+
+        //console.log(crow)
+
+        for (l in crow) {
+          if (crow[l] === undefined) {
+            crow[l] = ""
+          }
+        }
+
+        if (crow.img === "") {
+          crow.img = undefined
+        }
+
+        //console.log(name)
+
+        tout += "<tr class='trowid"+crow.id+"'><td>"+crow.name+"</td><td>"+crow.id+"</td><td>"+crow.group+"</td><td>"+crow.desc+"</td><td onclick='show("+'"'+crow.id+'"'+");'>[Click Here]</td></tr>"
+        
+        dout += "<div id='"+crow.id+"' class='exData drowid"+crow.id+"'><h1>"+crow.name+"</h1><h2>"+crow.id+"</h2><img src="+crow.img+" class='eximg'><p class='exDesc'>"+crow.exDesc+"</p><h3 class='location'>Last known location: "+crow.loc+"</h3><div class='rent "+crow.avail+"'><h3>Available: "+crow.avail+"</h3><p class='rentee'>Taken Out by: "+crow.rentee+"</p><p class='due'>Due: "+crow.due+"</p><button class='checkout'>Check Out</button></div><img src='Fancy X.png' class='closeX' onclick='hide("+'"'+crow.id+'"'+")'></div>"
+
+      }
+     }
+
+      $('#datatable').append(tout)
+      $('#extraData').append(dout)
+      $('img[src="undefined"]').remove()
+      $('.trowid').remove()
+      $('.drowid').remove()
+      //console.log(dout)
+
+
+      //console.log("Exists!");
+      loadbuttons();
+      vanish();
+      //$("#table").tablesorter({sortList:[[1,0]]});
+      $("#blackout").fadeOut();
+
+      
+     }
   </script>
 
-</body>
+
+  <!--
+  <script src="https://spreadsheets.google.com/feeds/cells/1FS7Q15EEYDFcT5_vcPkCE85OhD0tF4b7kksUzh-Dd44/od6/public/values?alt=json-in-script&callback=sheetLoaded"></script>
+-->
+  <script src="https://spreadsheets.google.com/feeds/cells/1mGzL4Ap4kb0Xm0MUoZDUKcabsxPk5on-4UzMKkqlNF4/od6/public/values?alt=json-in-script&callback=sheetLoaded"></script>
+  <script src="https://spreadsheets.google.com/feeds/cells/1mGzL4Ap4kb0Xm0MUoZDUKcabsxPk5on-4UzMKkqlNF4/ob8x97u/public/values?alt=json-in-script&callback=sheetLoaded"></script>
+  <script src="https://spreadsheets.google.com/feeds/cells/1mGzL4Ap4kb0Xm0MUoZDUKcabsxPk5on-4UzMKkqlNF4/oide8um/public/values?alt=json-in-script&callback=sheetLoaded"></script>
+  <script src="https://spreadsheets.google.com/feeds/cells/1mGzL4Ap4kb0Xm0MUoZDUKcabsxPk5on-4UzMKkqlNF4/oh5ekx4/public/values?alt=json-in-script&callback=sheetLoaded"></script>
+  <script src="https://spreadsheets.google.com/feeds/cells/1mGzL4Ap4kb0Xm0MUoZDUKcabsxPk5on-4UzMKkqlNF4/og9xpl2/public/values?alt=json-in-script&callback=sheetLoaded"></script>
+  <script src="https://spreadsheets.google.com/feeds/cells/1mGzL4Ap4kb0Xm0MUoZDUKcabsxPk5on-4UzMKkqlNF4/ow4t00h/public/values?alt=json-in-script&callback=sheetLoaded"></script>
+
+
+  <script>
+    var tf = new TableFilter(document.querySelector('#table'), {
+      col_0: "select",
+      col_1: "none",
+      col_2: "select",
+      col_3: "none",
+      col_4: "none",
+      extensions: [{ name: 'sort' }]
+    });
+    tf.init();
+  </script>
+  </body>
 </html>

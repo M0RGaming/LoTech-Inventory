@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test</title>
+  <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="jquery.tablesorter.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="index2.css">
+  <link rel="stylesheet" type="text/css" href="themes/blue/style.css">
+  <script>
+    function find() {
+      // Declare variables 
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("SearchBar");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("table");
+      tr = table.getElementsByTagName("tr");
+
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+  </script>
+</head>
+<body>  
+
+  <!-- Loading Screen -->
+  <div id="blackout">
+    <div id="movingbox"></div>
+    <h1>Please Wait, Loading</h1>
+  </div>
+  
+
+  <!-- Search Bar -->
+  <input type="text" id="SearchBar" onkeyup="find()" placeholder="Search for items">
+
+
+  <!-- Table Header -->
+  <table id="table" class="container tablesorter">
+    <thead>
+      <tr>
+        <th><h1>Name</h1></th>
+        <th><h1>ID</h1></th>
+        <th><h1>Available?</h1></th>
+        <th><h1>Description</h1></th>
+        <th><h1>More Info</h1></th>
+      </tr>
+    </thead>
+
+
+    <!-- Table: Cables -->
+      <tbody sheetsu="https://sheetsu.com/apis/v1.0su/b7dcaa5daef3/sheets/0">
+          <tr class="t{{id}}row">
+            <td>{{name}}</td>
+            <td>{{id}}</td>
+            <td>{{avail}} <button class="{{avail}}" style="display: none;">Check Out Item</button></td>
+            <td>{{desc}}</td>
+            <td onclick="show('{{id}}');">[Click Here]</td>
+          </tr>
+      </tbody>
+
+
+    <!-- Table: Lighting -->
+      <tbody sheetsu="https://sheetsu.com/apis/v1.0su/b7dcaa5daef3/sheets/1">
+          <tr class="t{{id}}row">
+            <td>{{name}}</td>
+            <td>{{id}}</td>
+            <td>{{avail}} <button class="{{avail}}" style="display: none;">Check Out Item</button></td>
+            <td>{{desc}}</td>
+            <td onclick="show('{{id}}');">[Click Here]</td>
+          </tr>
+      </tbody>
+
+
+    <!-- Table: Sound -->
+      <tbody sheetsu="https://sheetsu.com/apis/v1.0su/b7dcaa5daef3/sheets/2">
+          <tr class="t{{id}}row">
+            <td>{{name}}</td>
+            <td>{{id}}</td>
+            <td>{{avail}} <button class="{{avail}}" style="display: none;">Check Out Item</button></td>
+            <td>{{desc}}</td>
+            <td onclick="show('{{id}}');">[Click Here]</td>
+          </tr>
+      </tbody>
+
+
+    <!-- Table: Props -->
+      <tbody sheetsu="https://sheetsu.com/apis/v1.0su/b7dcaa5daef3/sheets/3">
+          <tr class="t{{id}}row">
+            <td>{{name}}</td>
+            <td>{{id}}</td>
+            <td>{{avail}} <button class="{{avail}}" style="display: none;">Check Out Item</button></td>
+            <td>{{desc}}</td>
+            <td onclick="show('{{id}}');">[Click Here]</td>
+          </tr>
+      </tbody>
+
+
+    <!-- Table: Costumes -->
+      <tbody sheetsu="https://sheetsu.com/apis/v1.0su/b7dcaa5daef3/sheets/4">
+          <tr class="t{{id}}row">
+            <td>{{name}}</td>
+            <td>{{id}}</td>
+            <td>{{avail}} <button class="{{avail}}" style="display: none;">Check Out Item</button></td>
+            <td>{{desc}}</td>
+            <td onclick="show('{{id}}');">[Click Here]</td>
+          </tr>
+      </tbody>
+
+
+    <!-- Table: Other -->
+      <tbody sheetsu="https://sheetsu.com/apis/v1.0su/b7dcaa5daef3/sheets/5">
+          <tr class="t{{id}}row">
+            <td>{{name}}</td>
+            <td>{{id}}</td>
+            <td>{{avail}} <button class="{{avail}}" style="display: none;">Check Out Item</button></td>
+            <td>{{desc}}</td>
+            <td onclick="show('{{id}}');">[Click Here]</td>
+          </tr>
+      </tbody>
+
+      <!-- Title (Dont know why its in the table, but it works) -->
+      <h1 id="title">LO Tech Inventory</h1>
+  </table>
+
+
+
+
+
+
+
+  <!-- Extra Data -->
+
+
+  <!-- Data: Cables -->
+  <div sheetsu="https://sheetsu.com/apis/v1.0su/b7dcaa5daef3/sheets/0">
+    <!-- LOAD INFO ABOUT EACH THING HERE -->
+    <div id='{{id}}' class="exData ex{{id}}D">
+      <h1>{{name}}</h1>
+      <h2>{{id}}</h2>
+      <img src={{img}} class="eximg">
+      <p class="exDesc">{{exDesc}}</p>
+      <h3 class="location">Last known location: {{location}}</h3>
+      <div class='rent {{avail}}'>
+        <h3>Available: {{avail}}</h3>
+        <p class="rentee">Taken Out by: {{rentee}}</p>
+        <p class="due">Due: {{due}}</p>
+        <button class="checkout">Check Out</button>
+      </div>
+      <img src="Fancy X.png" class="closeX" onclick="hide('{{id}}')">
+    </div>
+  </div>
+
+
+  <!-- Data: Lighting -->
+  <div sheetsu="https://sheetsu.com/apis/v1.0su/b7dcaa5daef3/sheets/1">
+    <!-- LOAD INFO ABOUT EACH THING HERE -->
+    <div id='{{id}}' class="exData ex{{id}}D">
+      <h1>{{name}}</h1>
+      <h2>{{id}}</h2>
+      <img src={{img}} class="eximg">
+      <p class="exDesc">{{exDesc}}</p>
+      <h3 class="location">Last known location: {{location}}</h3>
+      <div class='rent {{avail}}'>
+        <h3>Available: {{avail}}</h3>
+        <p class="rentee">Taken Out by: {{rentee}}</p>
+        <p class="due">Due: {{due}}</p>
+        <button class="checkout">Check Out</button>
+      </div>
+      <img src="Fancy X.png" class="closeX" onclick="hide('{{id}}')">
+    </div>
+  </div>
+
+
+  <!-- Data: Sound -->
+  <div sheetsu="https://sheetsu.com/apis/v1.0su/b7dcaa5daef3/sheets/2">
+    <!-- LOAD INFO ABOUT EACH THING HERE -->
+    <div id='{{id}}' class="exData ex{{id}}D">
+      <h1>{{name}}</h1>
+      <h2>{{id}}</h2>
+      <img src={{img}} class="eximg">
+      <p class="exDesc">{{exDesc}}</p>
+      <h3 class="location">Last known location: {{location}}</h3>
+      <div class='rent {{avail}}'>
+        <h3>Available: {{avail}}</h3>
+        <p class="rentee">Taken Out by: {{rentee}}</p>
+        <p class="due">Due: {{due}}</p>
+        <button class="checkout">Check Out</button>
+      </div>
+      <img src="Fancy X.png" class="closeX" onclick="hide('{{id}}')">
+    </div>
+  </div>
+
+
+  <!-- Data: Props -->
+  <div sheetsu="https://sheetsu.com/apis/v1.0su/b7dcaa5daef3/sheets/3">
+    <!-- LOAD INFO ABOUT EACH THING HERE -->
+    <div id='{{id}}' class="exData ex{{id}}D">
+      <h1>{{name}}</h1>
+      <h2>{{id}}</h2>
+      <img src={{img}} class="eximg">
+      <p class="exDesc">{{exDesc}}</p>
+      <h3 class="location">Last known location: {{location}}</h3>
+      <div class='rent {{avail}}'>
+        <h3>Available: {{avail}}</h3>
+        <p class="rentee">Taken Out by: {{rentee}}</p>
+        <p class="due">Due: {{due}}</p>
+        <button class="checkout">Check Out</button>
+      </div>
+      <img src="Fancy X.png" class="closeX" onclick="hide('{{id}}')">
+    </div>
+  </div>
+
+
+  <!-- Data: Costumes -->
+  <div sheetsu="https://sheetsu.com/apis/v1.0su/b7dcaa5daef3/sheets/4">
+    <!-- LOAD INFO ABOUT EACH THING HERE -->
+    <div id='{{id}}' class="exData ex{{id}}D">
+      <h1>{{name}}</h1>
+      <h2>{{id}}</h2>
+      <img src={{img}} class="eximg">
+      <p class="exDesc">{{exDesc}}</p>
+      <h3 class="location">Last known location: {{location}}</h3>
+      <div class='rent {{avail}}'>
+        <h3>Available: {{avail}}</h3>
+        <p class="rentee">Taken Out by: {{rentee}}</p>
+        <p class="due">Due: {{due}}</p>
+        <button class="checkout">Check Out</button>
+      </div>
+      <img src="Fancy X.png" class="closeX" onclick="hide('{{id}}')">
+    </div>
+  </div>
+
+
+  <!-- Data: Others -->
+  <div sheetsu="https://sheetsu.com/apis/v1.0su/b7dcaa5daef3/sheets/5">
+    <!-- LOAD INFO ABOUT EACH THING HERE -->
+    <div id='{{id}}' class="exData ex{{id}}D">
+      <h1>{{name}}</h1>
+      <h2>{{id}}</h2>
+      <img src={{img}} class="eximg">
+      <p class="exDesc">{{exDesc}}</p>
+      <h3 class="location">Last known location: {{location}}</h3>
+      <div class='rent {{avail}}'>
+        <h3>Available: {{avail}}</h3>
+        <p class="rentee">Taken Out by: {{rentee}}</p>
+        <p class="due">Due: {{due}}</p>
+        <button class="checkout">Check Out</button>
+      </div>
+      <img src="Fancy X.png" class="closeX" onclick="hide('{{id}}')">
+    </div>
+    <div class="{{load}}"></div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Scripts that run last -->
+  <script src="load_sheetsu.js"></script> <!-- API for sheets -->
+ 
+
+  <script type="text/javascript">
+    // Wait for all the data to load
+    var checkExist = setInterval(function() {
+       if ($('.loaded').length) {
+          console.log("Exists!");
+          loadbuttons();
+          vanish();
+          $("#table").tablesorter({sortList:[[1,0]]});
+          $("#blackout").fadeOut();
+          clearInterval(checkExist);
+       }
+    }, 100); // check every 100ms
+
+    
+    // set all buttons that have a class of Yes to visible
+    function loadbuttons() {
+      [].forEach.call(document.querySelectorAll('.Yes'), function (el) {
+        el.style.display = 'inherit';
+      });
+    };
+
+    // vanish conflictions and extra data, also remove blank cells and blank data
+    function vanish() {
+      $('.rent.No').children('.checkout').hide()
+      $('.rent.Yes').children('.rentee,.due').hide()
+
+      $('.exData').hide()
+      $('.exData').css('zIndex', 10)
+      $('.trow').remove()
+      $('.exD').remove()
+
+    };
+
+    //show extra data
+    function show(el) {
+      $("#"+el).fadeIn()
+    };
+
+    //hide extra data
+    function hide(el) {
+      $("#"+el).fadeOut()
+    };
+
+  </script>
+
+</body>
+</html>
