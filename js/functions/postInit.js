@@ -1,10 +1,12 @@
 // After all else has been loaded
 
-/*
+
 try {
   $('img[src="undefined"]').remove()
-} catch {}
-*/
+} catch(e) {
+  console.log(e) 
+}
+
 
 $('.trowid').remove()
 $('.drowid').remove()
