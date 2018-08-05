@@ -1,9 +1,11 @@
 // After all else has been loaded
 
-
+/*
 try {
   $('img[src="undefined"]').remove()
 } catch {}
+*/
+
 $('.trowid').remove()
 $('.drowid').remove()
 //console.log(dout)
