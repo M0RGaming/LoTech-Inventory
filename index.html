@@ -33,7 +33,10 @@
   <body>
     
     <div id="blackout">
+      <!--
       <div id="movingbox"></div>
+    -->
+      <img id="loadingimg" src="lo.png">
       <h1>Please Wait, Loading</h1>
     </div>
     
@@ -234,9 +237,7 @@
           }
         }
 
-        if (crow.img === "") {
-          crow.img = undefined
-        }
+        
 
         if (crow.exDesc === "") {
           crow.exDesc = crow.desc
@@ -246,26 +247,26 @@
 
         tout += "<tr class='trowid"+crow.id+"'><td>"+crow.name+"</td><td>"+crow.id+"</td><td>"+crow.group+"</td><td>"+crow.desc+"</td><td onclick='show("+'"'+crow.id+'"'+");'>[Click Here]</td></tr>"
         
-        dout += "<div id='"+crow.id+"' class='exData drowid"+crow.id+"'><h1>"+crow.name+"</h1><h2>"+crow.id+"</h2><img src="+crow.img+" class='eximg'><p class='exDesc'>"+crow.exDesc+"</p><h3 class='location'>Last known location: "+crow.loc+"</h3><div class='rent "+crow.avail+"'><h3>Available: "+crow.avail+"</h3><p class='rentee'>Taken Out by: "+crow.rentee+"</p><p class='due'>Due: "+crow.due+"</p><button class='checkout'>Check Out</button></div><img src='Fancy X.png' class='closeX' onclick='hide("+'"'+crow.id+'"'+")'></div>"
+
+
+
+        dout += "<div id='"+crow.id+"' class='exData drowid"+crow.id+"'><h1>"+crow.name+"</h1><h2>"+crow.id+"</h2>"
+
+        if (crow.img !== "") {
+          
+          dout +="<img src="+crow.img+" class='eximg'>"
+        }
+        
+        dout +="<p class='exDesc'>"+crow.exDesc+"</p><h3 class='location'>Last known location: "+crow.loc+"</h3><div class='rent "+crow.avail+"'><h3>Available: "+crow.avail+"</h3><p class='rentee'>Taken Out by: "+crow.rentee+"</p><p class='due'>Due: "+crow.due+"</p><button class='checkout'>Check Out</button></div><img src='Fancy X.png' class='closeX' onclick='hide("+'"'+crow.id+'"'+")'></div>"
+
+
+
 
       }
      }
 
       $('#datatable').append(tout)
       $('#extraData').append(dout)
-      $('img[src="undefined"]').remove()
-      $('.trowid').remove()
-      $('.drowid').remove()
-      //console.log(dout)
-
-
-      //console.log("Exists!");
-      loadbuttons();
-      vanish();
-      //$("#table").tablesorter({sortList:[[1,0]]});
-      $("#blackout").fadeOut();
-
-      
      }
   </script>
 
@@ -291,6 +292,22 @@
       extensions: [{ name: 'sort' }]
     });
     tf.init();
+
+
+    // After all else has been loaded
+    try {
+      $('img[src="undefined"]').remove()
+    } catch {}
+    $('.trowid').remove()
+    $('.drowid').remove()
+    //console.log(dout)
+
+
+    //console.log("Exists!");
+    loadbuttons();
+    vanish();
+    //$("#table").tablesorter({sortList:[[1,0]]});
+    $("#blackout").fadeOut();
   </script>
   </body>
 </html>

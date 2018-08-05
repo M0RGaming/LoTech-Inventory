@@ -233,3 +233,12 @@ h3.location {
   top: 25px;
   right: 25px;
 }
+
+#loadingimg {
+  position: relative;
+  height: 50vh;
+  display:  block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 15vh;
+}
