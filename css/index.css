@@ -132,7 +132,7 @@ input[type=text]:focus {
 
 #SearchBar {
     background-size: contain;
-    background-image: url('searchicon.png'); /* Add a search icon to input */
+    background-image: url('../media/searchicon.png'); /* Add a search icon to input */
     background-position: 1px 1px; /* Position the search icon */
     background-repeat: no-repeat; /* Do not repeat the icon image */
 /*    width: 100%; Full-width */
@@ -217,10 +217,13 @@ h3.location {
 }
 
 .eximg {
-      position: absolute;
+    position: absolute;
     left: 10px;
+    /*
     height: 75vh;
     top: 12.5vh;
+    */
+    width: 65vh;
 }
 
 .exDesc {
