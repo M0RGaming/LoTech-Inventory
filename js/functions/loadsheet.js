@@ -45,7 +45,7 @@ function insertData(data) {
   }
 
   console.log("=======Cells: "+sheet+"=======")
-  console.log(cells)
+  console.dir(cells)
   /*
   console.log("=======Headers=======")
   console.log(headers)
