@@ -8,7 +8,7 @@ function filtertable() {
 		col_4: "none",
 		extensions: [{ name: 'sort' }],
 		clear_filter_text: "< Show all >",
-		
+		linked_filters: true,
 	});
 	tf.init();
 
