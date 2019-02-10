@@ -97,7 +97,13 @@ function insertData(data) {
       dout += "<div id='"+crow.id+"' class='exData drowid"+crow.id+"'><h1>"+crow.name+"</h1><h2>"+crow.id+"</h2>"
 
       if (crow.img !== "") {
-        dout +="<img src="+crow.img+" class='eximg'>"
+        dout +="<img src="+crow.img+" class='eximg"
+        
+        if (crow.img.indexOf("http://drive.google.com/uc?") > -1) {
+          dout += " rotateImg"
+        }
+        dout += "'>"
+        
       }
       
       dout +="<p class='exDesc'>"+crow.exDesc+"</p><h3 class='location'>Last known location: "+crow.loc+"</h3><div class='rent "+crow.avail+"'><h3>Available: "+crow.avail+"</h3><p class='rentee'>Taken Out by: "+crow.rentee+"</p><p class='due'>Due: "+crow.due+"</p><button class='checkout'>Check Out</button></div><img src='media/Fancy X.png' class='closeX' onclick='hide("+'"'+crow.id+'"'+")'></div>"
