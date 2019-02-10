@@ -99,7 +99,7 @@ function insertData(data) {
       if (crow.img !== "") {
         dout +="<img src="+crow.img+" class='eximg"
         
-        if (crow.img.indexOf("http://drive.google.com/uc?") > -1) {
+        if (crow.img.includes("http://drive.google.com/uc?")) {
           dout += " rotateImg"
         }
         dout += "'>"
